@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  database:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    user: "postgres"
+    password: "//*p05tgr355//*"
+    volumes:
+      - data:/Library/PostgreSQL/13/data
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    networks:
+      - default
+    ports:
+      - "8080:8080"
+    volumes:
+      data:
